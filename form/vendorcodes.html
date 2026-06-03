@@ -1,0 +1,31 @@
+{% if organisations is defined and organisations|length > 0 %}
+    {% for organisation in organisations %}
+        {% set vendorCode = '' %}
+        {% if company['vendor_codes'][organisation['id']] is defined %}
+            {% set vendorCode = company['vendor_codes'][organisation['id']] %}
+        {% endif %}
+        <div class="row">
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'vendor_code_for_' ~ organisation['id'],
+                        'fieldLabel'                                : 'Vendor Code for ' ~ organisation['name'] ~ ' (' ~ organisation['pan'] ~ ')',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Vendor Code for ' ~ organisation['name'] ~ ' (' ~ organisation['pan'] ~ ')',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldDataInputMaxLength'                   : 50,
+                        'fieldBazPostOnCreate'                      : false,
+                        'fieldBazPostOnUpdate'                      : false,
+                        'fieldValue'                                : vendorCode
+                    ]
+                )}}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

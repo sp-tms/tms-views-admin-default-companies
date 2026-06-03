@@ -1,0 +1,37 @@
+{% if company['contacts'] is defined %}
+    {% set companyContacts = company['contacts'] %}
+{% else %}
+    {% set companyContacts = '' %}
+{% endif %}
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('contacts',
+            [
+                'component'                                   : component,
+                'componentName'                               : componentName,
+                'componentId'                                 : componentId,
+                'sectionId'                                   : sectionId,
+                'contactFieldType'                            : 'multiple',
+                'includePortrait'                             : true,
+                'includeName'                                 : true,
+                'firstNameFieldRequired'                      : true,
+                'lastNameFieldRequired'                       : true,
+                'includeEmail'                                : true,
+                'includeOther'                                : true,
+                'includeNotes'                                : true,
+                'contacts'                                    : companyContacts,
+                'firstNameFieldBazPostOnCreate'               : true,
+                'lastNameFieldBazPostOnCreate'                : true,
+                'emailFieldBazPostOnCreate'                   : true,
+                'secondaryEmailFieldBazPostOnCreate'          : true,
+                'ccEmailsToSecondaryEmailFieldBazPostOnCreate': true,
+                'contactPhoneFieldBazPostOnCreate'            : true,
+                'contactPhoneExtFieldBazPostOnCreate'         : true,
+                'contactMobileFieldBazPostOnCreate'           : true,
+                'contactFaxFieldBazPostOnCreate'              : true,
+                'contactOtherFieldBazPostOnCreate'            : true,
+                'contactNotesFieldBazPostOnCreate'            : true
+            ]
+        )}}
+    </div>
+</div>

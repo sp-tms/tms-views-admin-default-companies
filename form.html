@@ -1,0 +1,205 @@
+<form data-validateon="section" id="{{componentId}}-{{sectionId}}-form">
+    <fieldset id="{{componentId}}-{{sectionId}}-fieldset">
+        <div class="row vdivide">
+            <div class="col-md-2">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'form-fields',
+                        'fieldLabel'                                : 'Form Fields',
+                        'fieldType'                                 : 'jstree',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Form Fields',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldJstreeSearch'                         : true,
+                        'fieldBazPostOnCreate'                      : false,
+                        'fieldBazPostOnUpdate'                      : false,
+                        'fieldJstreeDataSrcArr'                     : [],
+                        'fieldJstreeAdd'                            : false,
+                        'fieldJstreeEdit'                           : false,
+                        'fieldJstreeExpand'                         : true,
+                        'fieldJstreeCollapse'                       : true,
+                        'fieldJstreeFirstOpen'                      : true,
+                        'fieldJstreeAllOpen'                        : false,
+                        'fieldJstreeToggleAllChildren'              : false,
+                        'fieldJstreeIncludeRootInPath'              : false,
+                        'fieldJstreeSelectEndNodeOnly'              : false,
+                        'fieldJstreeShowDots'                       : false,
+                        'fieldJstreeDoubleClickToggle'              : true,
+                        'fieldJstreeMultiple'                       : false,
+                        'fieldJstreeSearchCaseSensitive'            : false,
+                        'fieldJstreeSearchShowOnlyMatches'          : false,
+                        'fieldJstreeSearchShowOnlyMatchesChildren'  : false,
+                        'fieldJstreeHideJstreeIcons'                : false
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {% set tabsData =
+                    [
+                        'info'   :
+                        [
+                            'tabTitle'          : 'Info',
+                            'tabInclude'        : 'companies/form/info'
+                        ],
+                        'contacts'   :
+                        [
+                            'tabTitle'          : 'Contacts',
+                            'tabInclude'        : 'companies/form/contacts'
+                        ],
+                        'addresses'   :
+                        [
+                            'tabTitle'          : 'Addresses',
+                            'tabInclude'        : 'companies/form/addresses'
+                        ],
+                        'licenses'   :
+                        [
+                            'tabTitle'          : 'Licenses',
+                            'tabInclude'        : 'companies/form/licenses'
+                        ],
+                        'pterms'   :
+                        [
+                            'tabTitle'          : 'Payment Terms',
+                            'tabInclude'        : 'companies/form/pterms'
+                        ]
+                    ]
+                %}
+                {% if company['id'] is defined %}
+                    {% if company['business_type'] != 'organisations' %}
+                        {% set tabsData = array_merge(tabsData, [
+                                'vendorcodes'   :
+                                [
+                                    'tabTitle'          : 'Vendor Codes',
+                                    'tabInclude'        : 'companies/form/vendorcodes'
+                                ]
+                            ])
+                        %}
+                    {% endif %}
+                {% endif %}
+                {{adminltetags.useTag('tabs',
+                    [
+                        'component'                     : component,
+                        'componentName'                 : componentName,
+                        'componentId'                   : componentId,
+                        'sectionId'                     : 'main',
+                        'tabsId'                        : 'tabs',
+                        'tabsStyle'                     : 'card-outline-tabs',
+                        'tabsData'                      : tabsData
+                    ]
+                )}}
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% if organisations is not defined %}
+    {% set organisations = [] %}
+{% endif %}
+{% set company = json_encode(company, 16) %}
+{% set organisations = json_encode(organisations, 16) %}
+<script>
+/*global paginatedPNotify BazProgress BazContentFields BazHelpers BazContentLoader Pace BazCore dataCollection Swal */
+var dataCollectionComponent, dataCollectionSection, dataCollectionSectionForm;
+
+if (!window['dataCollection']['{{componentId}}']) {
+    dataCollectionComponent =
+        window['dataCollection']['{{componentId}}'] = { };
+} else {
+    dataCollectionComponent =
+        window['dataCollection']['{{componentId}}'];
+}
+if (!dataCollectionComponent['{{componentId}}-{{sectionId}}']) {
+    dataCollectionSection =
+        dataCollectionComponent['{{componentId}}-{{sectionId}}'] = { };
+} else {
+    dataCollectionSection =
+        dataCollectionComponent['{{componentId}}-{{sectionId}}'];
+}
+if (!dataCollectionSection['{{componentId}}-{{sectionId}}-form']) {
+    dataCollectionSectionForm =
+        dataCollectionSection['{{componentId}}-{{sectionId}}-form'] = { };
+} else {
+    dataCollectionSectionForm =
+        dataCollectionSection['{{componentId}}-{{sectionId}}-form'];
+}
+
+if (!dataCollectionSectionForm['vars']) {
+    dataCollectionSectionForm['vars'] = { };
+}
+if (!dataCollectionSectionForm['funcs']) {
+    dataCollectionSectionForm['funcs'] = { };
+}
+
+dataCollectionSectionForm['vars']['organisations'] = JSON.parse('{{organisations}}');
+dataCollectionSectionForm['vars']['company'] = JSON.parse('{{company}}');
+
+if (Object.keys(dataCollectionSectionForm['vars']['organisations']).length > 0) {
+    for (var organisation in dataCollectionSectionForm['vars']['organisations']) {
+        dataCollectionSection['{{componentId}}-{{sectionId}}-vendor_code_for_' + dataCollectionSectionForm['vars']['organisations'][organisation]['id']] = { };
+    }
+}
+
+dataCollectionSection =
+    $.extend(dataCollectionSection, {
+        '{{componentId}}-{{sectionId}}-id'                          : { },
+        '{{componentId}}-{{sectionId}}-business_type'               : { },
+        '{{componentId}}-{{sectionId}}-name'                        : { },
+        '{{componentId}}-{{sectionId}}-archived'                    : { },
+        '{{componentId}}-{{sectionId}}-description'                 : { },
+        '{{componentId}}-{{sectionId}}-company_phone_1'             : { },
+        '{{componentId}}-{{sectionId}}-company_phone_2'             : { },
+        '{{componentId}}-{{sectionId}}-company_fax'                 : { },
+        '{{componentId}}-{{sectionId}}-company_website'             : { },
+        '{{componentId}}-{{sectionId}}-company_email'               : { },
+        '{{componentId}}-{{sectionId}}-gst'                         : { },
+        '{{componentId}}-{{sectionId}}-gst_date'                    : {
+            altFormat           : "d-m-Y",
+            allowInput          : true,
+            static              : true,
+            minDate             : "01-01-1970",
+            maxDate             : "today",
+        },
+        '{{componentId}}-{{sectionId}}-pan'                         : { },
+        '{{componentId}}-{{sectionId}}-pan_date'                    : {
+            altFormat           : "d-m-Y",
+            allowInput          : true,
+            static              : true,
+            minDate             : "01-01-1970",
+            maxDate             : "today",
+        },
+        '{{componentId}}-{{sectionId}}-reg'                         : { },
+        '{{componentId}}-{{sectionId}}-reg_date'                    : {
+            altFormat           : "d-m-Y",
+            allowInput          : true,
+            static              : true,
+            minDate             : "01-01-1970",
+            maxDate             : "today",
+        },
+        '{{componentId}}-{{sectionId}}-payment_terms'               : { },
+        '{{componentId}}-{{sectionId}}-form' : {
+            rules: {
+                '{{componentId}}-{{sectionId}}-name'            : 'required',
+                '{{componentId}}-{{sectionId}}-pan'             : 'required',
+            },
+            messages: {
+                '{{componentId}}-{{sectionId}}-name'            : 'Please enter name',
+                '{{componentId}}-{{sectionId}}-pan'             : 'Please enter pan',
+            },
+            onSubmit: function() {
+                dataCollectionSection['dataToSubmit']['vendor_codes'] = { };
+
+                if (Object.keys(dataCollectionSectionForm['vars']['organisations']).length > 0) {
+                    for (var organisation in dataCollectionSectionForm['vars']['organisations']) {
+                        dataCollectionSection['dataToSubmit']['vendor_codes'][dataCollectionSectionForm['vars']['organisations'][organisation]['id']]
+                            = $('#{{componentId}}-{{sectionId}}-vendor_code_for_' + dataCollectionSectionForm['vars']['organisations'][organisation]['id']).val();
+                    }
+                }
+
+                return true;
+            }
+        }
+    });
+</script>

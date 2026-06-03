@@ -1,0 +1,30 @@
+{% if company['id'] is defined %}
+    {% set companyPaymentTerms = company['payment_terms'] %}
+{% else %}
+    {% set companyPaymentTerms = '' %}
+{% endif %}
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                      : component,
+                'componentName'                  : componentName,
+                'componentId'                    : componentId,
+                'sectionId'                      : sectionId,
+                'fieldId'                        : 'payment_terms',
+                'fieldLabel'                     : 'Payment Terms',
+                'fieldType'                      : 'textarea',
+                'fieldDataMaxLength'             : 4096,
+                'fieldHelp'                      : true,
+                'fieldHelpTooltipContent'        : 'Payment terms for this company',
+                'fieldRequired'                  : false,
+                'fieldBazScan'                   : true,
+                'fieldBazPostOnCreate'           : true,
+                'fieldBazPostOnUpdate'           : true,
+                'fieldDataInputMaxLength'        : 4096,
+                'fieldTextareaRows'              : 6,
+                'fieldValue'                     : companyPaymentTerms
+            ]
+        )}}
+    </div>
+</div>

@@ -1,0 +1,149 @@
+{% if company['id'] is defined %}
+    {% set companyGst = company['gst'] %}
+    {% set companyGstDate = company['gst_date'] %}
+    {% set companyPan = company['pan'] %}
+    {% set companyPanDate = company['pan_date'] %}
+    {% set companyReg = company['reg'] %}
+    {% set companyRegDate = company['reg_date'] %}
+{% else %}
+    {% set companyGst = '' %}
+    {% set companyGstDate = '' %}
+    {% set companyPan = '' %}
+    {% set companyPanDate = '' %}
+    {% set companyReg = '' %}
+    {% set companyRegDate = '' %}
+{% endif %}
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'gst',
+                'fieldLabel'                                : 'GST',
+                'fieldType'                                 : 'input',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'GST',
+                'fieldRequired'                             : false,
+                'fieldBazJstreeSearch'                      : true,
+                'fieldBazScan'                              : true,
+                'fieldDataInputMaxLength'                   : 50,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyGst
+            ]
+        )}}
+    </div>
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'gst_date',
+                'fieldLabel'                                : 'GST Date',
+                'fieldType'                                 : 'flatpickr',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'GST Date',
+                'fieldRequired'                             : false,
+                'fieldBazScan'                              : true,
+                'fieldBazJstreeSearch'                      : true,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyGstDate
+            ]
+        )}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'pan',
+                'fieldLabel'                                : 'PAN',
+                'fieldType'                                 : 'input',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'PAN',
+                'fieldRequired'                             : true,
+                'fieldBazJstreeSearch'                      : true,
+                'fieldBazScan'                              : true,
+                'fieldDataInputMaxLength'                   : 50,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyPan
+            ]
+        )}}
+    </div>
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'pan_date',
+                'fieldLabel'                                : 'PAN Date',
+                'fieldType'                                 : 'flatpickr',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'PAN Date',
+                'fieldRequired'                             : false,
+                'fieldBazScan'                              : true,
+                'fieldBazJstreeSearch'                      : true,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyPanDate
+            ]
+        )}}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'reg',
+                'fieldLabel'                                : 'Registration',
+                'fieldType'                                 : 'input',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'Registration',
+                'fieldRequired'                             : false,
+                'fieldBazScan'                              : true,
+                'fieldDataInputMaxLength'                   : 50,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyReg
+            ]
+        )}}
+    </div>
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                                 : component,
+                'componentName'                             : componentName,
+                'componentId'                               : componentId,
+                'sectionId'                                 : sectionId,
+                'fieldId'                                   : 'reg_date',
+                'fieldLabel'                                : 'Registration Date',
+                'fieldType'                                 : 'flatpickr',
+                'fieldHelp'                                 : true,
+                'fieldHelpTooltipContent'                   : 'Registration Date',
+                'fieldRequired'                             : false,
+                'fieldBazScan'                              : true,
+                'fieldBazJstreeSearch'                      : true,
+                'fieldBazPostOnCreate'                      : true,
+                'fieldBazPostOnUpdate'                      : true,
+                'fieldValue'                                : companyRegDate
+            ]
+        )}}
+    </div>
+</div>

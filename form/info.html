@@ -1,0 +1,299 @@
+{% if company['id'] is defined %}
+    {% set companyId = company['id'] %}
+    {% set companyBusinessType = company['business_type'] %}
+    {% set companyLogo = company['logo'] %}
+    {% set companyName = company['name'] %}
+    {% set companyArchived = company['archived'] %}
+    {% set companyDescription = company['description'] %}
+    {% set companyPhone1 = company['company_phone_1'] %}
+    {% set companyPhone2 = company['company_phone_2'] %}
+    {% set companyFax = company['company_fax'] %}
+    {% set companyWebsite = company['company_website'] %}
+    {% set companyEmail = company['company_email'] %}
+{% else %}
+    {% set companyId = '' %}
+    {% set companyBusinessType = '' %}
+    {% set companyLogo = '' %}
+    {% set companyName = '' %}
+    {% set companyArchived = '' %}
+    {% set companyDescription = '' %}
+    {% set companyPhone1 = '' %}
+    {% set companyPhone2 = '' %}
+    {% set companyFax = '' %}
+    {% set companyEmail = '' %}
+    {% set companyWebsite = '' %}
+{% endif %}
+{% if companyBusinessType == '' and businessType is not defined %}
+    {% set companyBusinessType = 'customers' %}
+{% endif %}
+{% if businessType is defined %}
+    {% set companyBusinessType = businessType %}
+{% endif %}
+{% if companyArchived == '1' %}
+    {% set companyArchivedChecked = true %}
+{% else %}
+    {% set companyArchivedChecked = false %}
+{% endif %}
+<div class="row">
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                             : component,
+                'componentName'                         : componentName,
+                'componentId'                           : componentId,
+                'sectionId'                             : sectionId,
+                'fieldId'                               : 'id',
+                'fieldLabel'                            : 'ID',
+                'fieldType'                             : 'input',
+                'fieldHelp'                             : true,
+                'fieldHelpTooltipContent'               : 'Company ID',
+                'fieldRequired'                         : true,
+                'fieldBazScan'                          : true,
+                'fieldBazPostOnCreate'                  : false,
+                'fieldBazPostOnUpdate'                  : true,
+                'fieldHidden'                           : true,
+                'fieldDisabled'                         : true,
+                'fieldValue'                            : companyId
+            ]
+        )}}
+    </div>
+    <div class="col">
+        {{adminltetags.useTag('fields',
+            [
+                'component'                             : component,
+                'componentName'                         : componentName,
+                'componentId'                           : componentId,
+                'sectionId'                             : sectionId,
+                'fieldId'                               : 'business_type',
+                'fieldLabel'                            : 'Business Type',
+                'fieldType'                             : 'input',
+                'fieldHelp'                             : true,
+                'fieldHelpTooltipContent'               : 'Company Business Type',
+                'fieldRequired'                         : true,
+                'fieldBazScan'                          : true,
+                'fieldBazPostOnCreate'                  : true,
+                'fieldBazPostOnUpdate'                  : true,
+                'fieldHidden'                           : true,
+                'fieldDisabled'                         : true,
+                'fieldValue'                            : companyBusinessType
+            ]
+        )}}
+    </div>
+</div>
+<div class="row vdivide">
+    <div class="col-md-3 col-sm-12">
+        {% if company['logo'] is defined and company['logo'] != '' %}
+            {% set logoLink = links.url('system/storages/q/uuid/' ~ companyLogo ~ '/w/200') %}
+        {% else %}
+            {% set logoLink = '' %}
+        {% endif %}
+        {{adminltetags.useTag('fields',
+            [
+                'component'                      : component,
+                'componentName'                  : componentName,
+                'componentId'                    : componentId,
+                'sectionId'                      : sectionId,
+                'fieldId'                        : 'logo',
+                'fieldLabel'                     : false,
+                'fieldType'                      : 'files/croppie',
+                'fieldValue'                     : companyLogo,
+                'imageType'                      : 'logo',
+                'storageType'                    : 'private',
+                'upload'                         : true,
+                'remove'                         : true,
+                'maxWidth'                       : 200,
+                'maxHeight'                      : 200,
+                'logoLink'                       : logoLink
+            ]
+        )}}
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                             : component,
+                        'componentName'                         : componentName,
+                        'componentId'                           : componentId,
+                        'sectionId'                             : sectionId,
+                        'fieldId'                               : 'name',
+                        'fieldLabel'                            : 'Company Name',
+                        'fieldType'                             : 'input',
+                        'fieldHelp'                             : true,
+                        'fieldHelpTooltipContent'               : 'Company Name Example: Bagga Carriers',
+                        'fieldRequired'                         : true,
+                        'fieldBazJstreeSearch'                  : true,
+                        'fieldBazScan'                          : true,
+                        'fieldBazPostOnCreate'                  : true,
+                        'fieldBazPostOnUpdate'                  : true,
+                        'fieldDataInputMinLength'               : 1,
+                        'fieldDataInputMaxLength'               : 100,
+                        'fieldValue'                            : companyName
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                      : component,
+                        'componentName'                  : componentName,
+                        'componentId'                    : componentId,
+                        'sectionId'                      : sectionId,
+                        'fieldId'                        : 'archived',
+                        'fieldLabel'                     : 'Archived?',
+                        'fieldHelp'                      : true,
+                        'fieldHelpTooltipContent'        : 'Check to archive company.',
+                        'fieldType'                      : 'checkbox',
+                        'fieldCheckboxType'              : 'danger',
+                        'fieldCheckboxChecked'           : companyArchivedChecked,
+                        'fieldCheckboxAdditionClass'     : 'text-sm text-uppercase',
+                        'fieldBazScan'                   : true,
+                        'fieldDisabled'                  : false,
+                        'fieldBazJstreeSearch'           : false,
+                        'fieldBazPostOnCreate'           : true,
+                        'fieldBazPostOnUpdate'           : true
+                    ]
+                )}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                      : component,
+                        'componentName'                  : componentName,
+                        'componentId'                    : componentId,
+                        'sectionId'                      : sectionId,
+                        'fieldId'                        : 'description',
+                        'fieldLabel'                     : 'Company Description',
+                        'fieldType'                      : 'textarea',
+                        'fieldDataMaxLength'             : 1024,
+                        'fieldHelp'                      : true,
+                        'fieldHelpTooltipContent'        : 'Description of the company',
+                        'fieldRequired'                  : false,
+                        'fieldBazScan'                   : true,
+                        'fieldBazPostOnCreate'           : true,
+                        'fieldBazPostOnUpdate'           : true,
+                        'fieldDataInputMaxLength'        : 2048,
+                        'fieldTextareaRows'              : 2,
+                        'fieldValue'                     : companyDescription
+                    ]
+                )}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'company_phone_1',
+                        'fieldLabel'                                : 'Company Phone #1',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Company Phone #1',
+                        'fieldRequired'                             : false,
+                        'fieldBazJstreeSearch'                      : true,
+                        'fieldBazScan'                              : true,
+                        'fieldDataInputMinLength'                   : 1,
+                        'fieldDataInputMaxLength'                   : 20,
+                        'fieldBazPostOnCreate'                      : true,
+                        'fieldBazPostOnUpdate'                      : true,
+                        'fieldValue'                                : companyPhone1
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'company_phone_2',
+                        'fieldLabel'                                : 'Company Phone #2',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Company Phone #2',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldDataInputMinLength'                   : 1,
+                        'fieldDataInputMaxLength'                   : 20,
+                        'fieldBazPostOnCreate'                      : true,
+                        'fieldBazPostOnUpdate'                      : true,
+                        'fieldValue'                                : companyPhone2
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'company_fax',
+                        'fieldLabel'                                : 'Company Fax',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Company Fax',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldDataInputMinLength'                   : 1,
+                        'fieldDataInputMaxLength'                   : 20,
+                        'fieldBazPostOnCreate'                      : true,
+                        'fieldBazPostOnUpdate'                      : true,
+                        'fieldValue'                                : companyFax
+                    ]
+                )}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'company_website',
+                        'fieldLabel'                                : 'Company Website',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Company Website',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldDataInputMaxLength'                   : 255,
+                        'fieldBazPostOnCreate'                      : true,
+                        'fieldBazPostOnUpdate'                      : true,
+                        'fieldValue'                                : companyWebsite
+                    ]
+                )}}
+            </div>
+            <div class="col">
+                {{adminltetags.useTag('fields',
+                    [
+                        'component'                                 : component,
+                        'componentName'                             : componentName,
+                        'componentId'                               : componentId,
+                        'sectionId'                                 : sectionId,
+                        'fieldId'                                   : 'company_email',
+                        'fieldLabel'                                : 'Company Email',
+                        'fieldType'                                 : 'input',
+                        'fieldHelp'                                 : true,
+                        'fieldHelpTooltipContent'                   : 'Company Email',
+                        'fieldRequired'                             : false,
+                        'fieldBazScan'                              : true,
+                        'fieldBazJstreeSearch'                      : true,
+                        'fieldDataInputMaxLength'                   : 100,
+                        'fieldBazPostOnCreate'                      : true,
+                        'fieldBazPostOnUpdate'                      : true,
+                        'fieldValue'                                : companyEmail
+                    ]
+                )}}
+            </div>
+        </div>
+    </div>
+</div>

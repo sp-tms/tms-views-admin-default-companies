@@ -1,0 +1,64 @@
+{{adminltetags.useTag('content',
+    [
+        'component'                 : table['component'],
+        'componentName'             : componentName,
+        'componentId'               : componentId,
+        'parentComponentId'         : parent,
+        'sectionId'                 : 'listing',
+        'contentType'               : 'sectionWithListing',
+        'cardHeader'                : true,
+        'cardType'                  : 'primary',
+        'cardIcon'                  : 'building',
+        'cardTitle'                 : 'Companies',
+        'cardAdditionalClass'       : 'rounded-0',
+        'cardShowTools'             : ['maximize'],
+        'dtFixedHeader'             : true,
+        'dtFilter'                  : true,
+        'dtFilterShowQuickFilter'   : true,
+        'dtFilterButtons'           : ['reset'],
+        'dtFilters'                 : table['filters'],
+        'dtFilterColumns'           : table['filterColumns'],
+        'dtSecondaryButtons'        :
+            {
+                'componentId'                       : componentId,
+                'sectionId'                         : 'listing',
+                'buttonType'                        : 'DropdownSplitButtons',
+                'dropdownButtonId'                  : 'main',
+                'dropdownButtonTitle'               : 'Add New Company',
+                'dropdownButtonIcon'                : 'plus',
+                'dropdownButtonAdditionalClass'     : 'text-uppercase',
+                'buttonPosition'                    : 'right',
+                'dropdownAlign'                     : 'right',
+                'dropdowns'                         :
+                    {
+                        'add-customers' : {
+                            "title"             : "Customers",
+                            "additionalClass"   : "contentAjaxLink",
+                            "url"               : links.url('companies/q/id/0/businesstype/customers')
+                        },
+                        'add-vendors' : {
+                            "title"             : "Vendors",
+                            "additionalClass"   : "contentAjaxLink",
+                            "url"               : links.url('companies/q/id/0/businesstype/vendors')
+                        },
+                        "divider" : "divider",
+                        'add-organisations' : {
+                            "title"             : "Organisations",
+                            "additionalClass"   : "contentAjaxLink",
+                            "url"               : links.url('companies/q/id/0/businesstype/organisations')
+                    }
+                }
+            },
+        'dtTable'               : table,
+        'dtColumns'             : table['columns'],
+        'dtPostUrl'             : table['postUrl'],
+        'dtPostUrlParams'       : table['postUrlParams'],
+        'dtStriped'             : true,
+        'dtStateSave'           : false,
+        'dtBordered'            : false,
+        'dtHideIdColumn'        : false,
+        'dtNoOfColumnsToShow'   : 6,
+        'dtTableCompact'        : true,
+        'dtZeroRecords'         : 'No companies available. Add by clicking the Add new company button.'
+    ]
+)}}

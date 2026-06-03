@@ -1,0 +1,44 @@
+{% if company['id'] is defined %}
+    {% set companyId = company['id'] %}
+    {% set title = 'Company (' ~ company['name'] ~ ')' %}
+    {% if company['business_type'] == 'customers' %}
+        {% set title = title ~ ' (Customer)' %}
+    {% elseif company['business_type'] == 'organisations' %}
+        {% set title = title ~ ' (Organisation)' %}
+    {% elseif company['business_type'] == 'vendors' %}
+        {% set title = title ~ ' (Vendor)' %}
+    {% endif %}
+    {% set businessType = company['business_type'] %}
+{% else %}
+    {% set companyId = '' %}
+    {% set title = 'New Company' %}
+    {% set businessType = 'customers' %}
+    {% set title = title ~ ' (Customer)' %}
+{% endif %}
+{{adminltetags.useTag('content',
+    [
+        'component'                     : component,
+        'componentName'                 : componentName,
+        'componentId'                   : componentId,
+        'parentComponentId'             : parent,
+        'sectionId'                     : 'main',
+        'contentType'                   : 'sectionWithForm',
+        'cardHeader'                    : true,
+        'cardFooter'                    : true,
+        'cardType'                      : 'primary',
+        'cardIcon'                      : 'building',
+        'cardTitle'                     : title,
+        'cardAdditionalClass'           : 'rounded-0',
+        'cardBodyInclude'               : 'companies/form',
+        'formButtons'                   :
+        [
+            'updateButtonId'                : companyId,
+            'addActionUrl'                  : 'companies/add',
+            'addSuccessRedirectUrl'         : 'companies',
+            'updateActionUrl'               : 'companies/update',
+            'updateSuccessRedirectUrl'      : 'companies',
+            'cancelActionUrl'               : 'companies',
+            'closeActionUrl'                : 'companies'
+        ]
+    ]
+)}}
