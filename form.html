@@ -98,7 +98,11 @@
 {% if organisations is not defined %}
     {% set organisations = [] %}
 {% endif %}
-{% set company = json_encode(company, 16) %}
+{% if company['id'] is defined %}
+    {% set company = json_encode(company, 16) %}
+{% else %}
+    {% set company = json_encode([], 16) %}
+{% endif %}
 {% set organisations = json_encode(organisations, 16) %}
 <script>
 /*global paginatedPNotify BazProgress BazContentFields BazHelpers BazContentLoader Pace BazCore dataCollection Swal */

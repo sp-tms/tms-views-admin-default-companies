@@ -17,20 +17,14 @@
                 'firstNameFieldRequired'                      : true,
                 'lastNameFieldRequired'                       : true,
                 'includeEmail'                                : true,
+                'secondaryEmailFieldHidden'                   : true,
+                'ccEmailsToSecondaryEmailFieldHidden'         : true,
                 'includeOther'                                : true,
                 'includeNotes'                                : true,
                 'contacts'                                    : companyContacts,
-                'firstNameFieldBazPostOnCreate'               : true,
-                'lastNameFieldBazPostOnCreate'                : true,
-                'emailFieldBazPostOnCreate'                   : true,
-                'secondaryEmailFieldBazPostOnCreate'          : true,
-                'ccEmailsToSecondaryEmailFieldBazPostOnCreate': true,
-                'contactPhoneFieldBazPostOnCreate'            : true,
-                'contactPhoneExtFieldBazPostOnCreate'         : true,
-                'contactMobileFieldBazPostOnCreate'           : true,
-                'contactFaxFieldBazPostOnCreate'              : true,
-                'contactOtherFieldBazPostOnCreate'            : true,
-                'contactNotesFieldBazPostOnCreate'            : true
+                'contactPostLink'                             : links.url('companies/contacts'),
+                'contactPackageName'                          : 'TMSCompanies',
+                'contactPackageRowId'                         : company['id']
             ]
         )}}
     </div>
