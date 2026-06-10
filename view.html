@@ -9,11 +9,19 @@
         {% set title = title ~ ' (Vendor)' %}
     {% endif %}
     {% set businessType = company['business_type'] %}
+    {% set tools = ['activityLogs'] %}
 {% else %}
     {% set companyId = '' %}
     {% set title = 'New Company' %}
+    {% if businessType == 'customers' %}
+        {% set title = title ~ ' (Customer)' %}
+    {% elseif businessType == 'organisations' %}
+        {% set title = title ~ ' (Organisation)' %}
+    {% elseif businessType == 'vendors' %}
+        {% set title = title ~ ' (Vendor)' %}
+    {% endif %}
     {% set businessType = 'customers' %}
-    {% set title = title ~ ' (Customer)' %}
+    {% set tools = [] %}
 {% endif %}
 {{adminltetags.useTag('content',
     [
@@ -29,7 +37,7 @@
         'cardIcon'                      : 'building',
         'cardTitle'                     : title,
         'cardAdditionalClass'           : 'rounded-0',
-        'cardShowTools'                 : ['activityLogs'],
+        'cardShowTools'                 : tools,
         'cardBodyInclude'               : 'companies/form',
         'formButtons'                   :
         [

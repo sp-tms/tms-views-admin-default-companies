@@ -5,7 +5,7 @@
 {% endif %}
 <div class="row">
     <div class="col">
-        {{adminltetags.useTag('addresses',
+        {% set params =
             [
                 'component'                                   : component,
                 'componentName'                               : componentName,
@@ -16,11 +16,19 @@
                 'includeStreet'                               : true,
                 'includeStreetExt'                            : true,
                 'searchType'                                  : 'city',
-                'addresses'                                   : companyAddresses,
-                'addressPostLink'                             : links.url('companies/addresses'),
-                'addressPackageName'                          : 'TMSCompanies',
-                'addressPackageRowId'                         : company['id']
+                'addresses'                                   : companyAddresses
             ]
-        )}}
+        %}
+        {% if company['id'] is defined %}
+            {% set params = array_merge(params,
+                    [
+                        'addressPostLink'                             : links.url('companies/addresses'),
+                        'addressPackageName'                          : 'Companies',
+                        'addressPackageRowId'                         : company['id']
+                    ]
+                )
+            %}
+        {% endif %}
+        {{adminltetags.useTag('addresses', params)}}
     </div>
 </div>

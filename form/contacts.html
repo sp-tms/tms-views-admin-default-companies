@@ -5,7 +5,7 @@
 {% endif %}
 <div class="row">
     <div class="col">
-        {{adminltetags.useTag('contacts',
+        {% set params =
             [
                 'component'                                   : component,
                 'componentName'                               : componentName,
@@ -21,11 +21,19 @@
                 'ccEmailsToSecondaryEmailFieldHidden'         : true,
                 'includeOther'                                : true,
                 'includeNotes'                                : true,
-                'contacts'                                    : companyContacts,
-                'contactPostLink'                             : links.url('companies/contacts'),
-                'contactPackageName'                          : 'TMSCompanies',
-                'contactPackageRowId'                         : company['id']
+                'contacts'                                    : companyContacts
             ]
-        )}}
+        %}
+        {% if company['id'] is defined %}
+            {% set params = array_merge(params,
+                    [
+                        'contactPostLink'                             : links.url('companies/contacts'),
+                        'contactPackageName'                          : 'Companies',
+                        'contactPackageRowId'                         : company['id']
+                    ]
+                )
+            %}
+        {% endif %}
+        {{adminltetags.useTag('contacts', params)}}
     </div>
 </div>
