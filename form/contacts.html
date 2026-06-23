@@ -13,6 +13,7 @@
                 'sectionId'                                   : sectionId,
                 'contactFieldType'                            : 'multiple',
                 'includePortrait'                             : true,
+                'setOrphan'                                   : false,
                 'includeName'                                 : true,
                 'firstNameFieldRequired'                      : true,
                 'lastNameFieldRequired'                       : true,
@@ -28,7 +29,7 @@
             {% set params = array_merge(params,
                     [
                         'contactPostLink'                             : links.url('companies/contacts'),
-                        'contactPackageName'                          : 'Companies',
+                        'contactPackageClass'                         : 'Apps_Tms_Packages_Companies_Companies',
                         'contactPackageRowId'                         : company['id']
                     ]
                 )
