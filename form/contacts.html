@@ -12,7 +12,7 @@
                 'componentId'                                 : componentId,
                 'sectionId'                                   : sectionId,
                 'contactFieldType'                            : 'multiple',
-                'includePortrait'                             : true,
+                'includePortrait'                             : false,
                 'setOrphan'                                   : false,
                 'includeName'                                 : true,
                 'firstNameFieldRequired'                      : true,
@@ -28,6 +28,7 @@
         {% if company['id'] is defined %}
             {% set params = array_merge(params,
                     [
+                        'includePortrait'                             : true,
                         'contactPostLink'                             : links.url('companies/contacts'),
                         'contactPackageClass'                         : 'Apps_Tms_Packages_Companies_Companies',
                         'contactPackageRowId'                         : company['id']
